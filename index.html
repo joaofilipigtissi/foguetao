@@ -21,20 +21,74 @@
             top: 100vh;
             margin-top: -80px;
         }
+        .chao
+        {
+            position: relative;
+            left: 50%;
+            margin-left: -150px;
+            top: 0vh;
+            margin-top: -150px;
+        }
     </style>
 </head>
 <body>
-    <img src="foguete.gif" width="80px" class="foguete" id="moratelli">
+    <img src="lua.png" id="chao" width="300px" class="chao">
+    <img src="foguete.gif" onclick="Comecar();" width="80px" class="foguete" id="moratelli">
+    <audio id="audio1" controls="" autoplay="">
+        <source src="contagem_regressiva.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="audio2" controls="" autoplay="">
+        <source src="lancamento_foguete.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="audio2" controls="" autoplay="">
+        <source src="569462main_eagle_has_landed.mp3" type="audio/mp3">
+    </audio>
+
+    <audio id="audio4" controls="" autoplay="">
+        <source src="problem.mp3" type="audio/mp3">
+    </audio>
 </body>
 
 
 <script src="jquery-3.7.0.min.js"> </script>
 
 <script>
+
+function Comecar()
+    {
+        temporizador = setTimeout(Subir, 20000)
+
+        contagem = document.getElementById('audio1');
+        contagem.play();
+
+        temporizador2 = setTimeout(Tocar2, 20000)
+        temporizador3 = setTimeout(Tocar3, 38000) //pois 20s do primeiro + 20s do segundo
+        temporizador4 = setTimeout(Tocar4, 43000)
+    }
+
+    function Tocar2()
+    {
+        contagem = document.getElementById('audio2');
+        contagem.play();       
+    }
+
+    function Tocar3()
+    {
+        contagem = document.getElementById('audio3');
+        contagem.play();
+    }
+    function Tocar4()
+    {
+        contagem = document.getElementById('audio4');
+        contagem.play()
+    }
+
+
     // Vamos pegar o Tempo Inicial:
     d = new Date();
     tempo_inicial = d.getTime();
-    temporizador = setTimeout(Subir,1000)
     x = 700 
     y = 100
     ESQUERDA = " "
@@ -43,10 +97,10 @@
     {
         ESQUERDA = x + "px"
         TOPO = y + "px"
-        $("#moratelli").animate({left:ESQUERDA, top:TOPO},5000)
+        $("#moratelli").animate({top:TOPO},18000)
 
         temporizador = null //cancela  a animação Subir
-        temporizador = setInterval(Descer,2000)
+        temporizador = setInterval(Descer,1000)
     }
 
     function Descer()
@@ -57,42 +111,44 @@
             y = 700
         } 
         TOPO = y +"px"
-        $("#moratelli").animate({left:ESQUERDA, top:TOPO},2000)
+        $("#moratelli").animate({ top:TOPO },17000)
     }
 
     document.onkeydown = Pega_Tecla;
 
-function Pega_Tecla(e) 
-{	
-    e = e || window.event;
+    function Pega_Tecla(e) 
+    {	
+        e = e || window.event;
 
-    tecla = e.keyCode;
-    console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+        tecla = e.keyCode;
+        console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
 
-    d2 = new Date();
-    tempo_final = d2.getTime();
+        d2 = new Date();
+        tempo_final = d2.getTime();
 
-    if (tempo_final-tempo_inicial>2000)
-    {
-        tempo_inicial = tempo_final
+        if (tempo_final-tempo_inicial>2000)
+        {
+         tempo_inicial = tempo_final
     
 
 
-        if(tecla == 37)
-        {
-            $("#moratelli").stop()
-            x = x - 20
-            ESQUERDA = x + "px"
-            Descer()
+            if(tecla == 37)
+            {
+                $("#moratelli").stop()
+                x = x - 20
+                ESQUERDA = x + "px"
+                Descer()
+            }
+            if(tecla == 39)
+            {
+                $("#moratelli").stop()
+                x = x + 20
+                ESQUERDA = x + "px"
+                Descer()
+            }    
         }
-        if(tecla == 39)
-        {
-            $("#moratelli").stop()
-            x = x + 20
-            ESQUERDA = x + "px"
-            Descer()
-        }    
     }
-}
+   
+
 </script>
 </html>
